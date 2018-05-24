@@ -13,6 +13,7 @@ using Microsoft.Extensions.Options;
 using I_9Form.Models;
 using I_9Form.Models.AccountViewModels;
 using I_9Form.Services;
+using Microsoft.AspNetCore.DataProtection;
 
 namespace I_9Form.Controllers
 {
@@ -24,17 +25,20 @@ namespace I_9Form.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly IDataProtector _protector;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
-            ILogger<AccountController> logger)
+            ILogger<AccountController> logger,
+            IDataProtectionProvider provider)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _logger = logger;
+            _protector = provider.CreateProtector("CompanyEmployeeSecret");
         }
 
         [TempData]
@@ -210,6 +214,48 @@ namespace I_9Form.Controllers
         {
             ViewData["ReturnUrl"] = returnUrl;
             return View();
+        }
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult RegisterEmployee(string EmployeeId, string returnUrl=null)
+        {
+            ViewData["EmployeeId"] = EmployeeId;
+            ViewData["returnUrl"] = returnUrl;
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RegisterEmployee(RegisterEmployeeViewModel model, string returnUrl = null)
+        {
+            ViewData["ReturnUrl"] = returnUrl;
+            if (ModelState.IsValid)
+            {
+                var empid = int.Parse(_protector.Unprotect(model.EmployeeID));
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, EmployeeID = empid, userstage = UserStage.setup };
+                var result = await _userManager.CreateAsync(user, model.Password);
+                if (result.Succeeded)
+                {
+                    _logger.LogInformation("Invitation Accepted: Beneficiary created a new account with password.");
+                    var roleresult = await _userManager.AddToRoleAsync(user, "Employee");
+                    if (roleresult.Succeeded)
+                    {
+                        _logger.LogInformation("CompanyAdmin Role Assigned to: " + user.UserName);
+                    }
+                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+                    var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
+                    await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
+
+                    await _signInManager.SignInAsync(user, isPersistent: false);
+                    _logger.LogInformation("Invitation Accepted:Beneficiary User created a new account with password.");
+
+                    var result2 = await _userManager.ConfirmEmailAsync(user, code);
+                    return RedirectToLocal(returnUrl);
+                }
+                AddErrors(result);
+            }
+            return View(model);
         }
 
         [HttpPost]

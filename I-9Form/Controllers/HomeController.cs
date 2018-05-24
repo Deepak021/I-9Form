@@ -12,6 +12,11 @@ namespace I_9Form.Controllers
     {
         public IActionResult Index()
         {
+            if (this.User.Identity.IsAuthenticated)
+            {
+                
+                    return RedirectToAction("Index", "Employee");
+            }
             return View();
         }
 
