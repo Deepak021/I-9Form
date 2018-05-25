@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using I_9Form.Models;
+using I_9Form.Models.EmployeeViewModels;
 
 namespace I_9Form.Data
 {
@@ -22,5 +23,6 @@ namespace I_9Form.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+        public DbSet<EmployeeViewModel> EmployeeViewModels { get; set; }
     }
 }

@@ -9,6 +9,8 @@ namespace I_9Form.Models.EmployeeViewModels
 {
     public class EmployeeViewModel
     {
+        [Key]
+        public int? EmployeeID { get; set; }
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
         [Display(Name = "First Name")]
@@ -37,7 +39,7 @@ namespace I_9Form.Models.EmployeeViewModels
         public string ZipCode { get; set; }
         [Display(Name = "Date of Birth")]
         [DataType(DataType.Date)]
-        public DateTime date { get; set; }
+        public DateTime DateOfBirth { get; set; }
         [Display(Name = "U.S. Social Security Number")]
         [Required(ErrorMessage = "Required field"), StringLength(9, ErrorMessage = "max 9 digit allowed.")]
         public string USSNumber { get; set; }

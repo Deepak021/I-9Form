@@ -1,7 +1,129 @@
-﻿
+﻿@model IEnumerable<I_9Form.Models.EmployeeViewModels.EmployeeViewModel>
 @{
     ViewData["Title"] = "Index";
 }
 
-<h2>Index</h2>
+<h2>Just a view</h2>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <p>
+        <a asp-action="Create" class="btn btn-sm btn-primary">Create New</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MiddleName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OtherLastNameUsed)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.AddressLabel)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ApptNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.CityOrTown)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Cstate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ZipCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateOfBirth)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.USSNumber)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNumber)
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        @if (Model != null)
+        {
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.MiddleName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.OtherLastNameUsed)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.AddressLabel)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.ApptNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.CityOrTown)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Cstate)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.ZipCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.DateOfBirth)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.USSNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.PhoneNumber)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.EmployeeID">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.EmployeeID">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.EmployeeID">Delete</a>
+                </td>
+            </tr>
+            }
+        }
+        </tbody>
+   </table>
+</body>
+</html>
+
+
+
+
+
+
+
 
