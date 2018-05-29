@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using I_9Form.Data;
+using I_9Form.Models.EmployeeViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace I_9Form.Controllers
@@ -23,15 +24,15 @@ namespace I_9Form.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Book book)
+        public async Task<IActionResult> Create(EmployeeViewModel employeeViewModel)
         {
             if (ModelState.IsValid)
             {
-                _db.Add(book);
+                _db.Add(employeeViewModel);
                 await _db.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(book);
+            return View(employeeViewModel);
         }
     }
 }
