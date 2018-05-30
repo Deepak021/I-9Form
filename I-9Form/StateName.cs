@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace I_9Form
 {
-    public class StateName
-    {
+    
         public enum USState
         {
             [Description("Alaska")]
@@ -162,4 +161,3 @@ namespace I_9Form
             WY
         }
     }
-}

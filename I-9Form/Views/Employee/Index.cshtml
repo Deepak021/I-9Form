@@ -1,4 +1,4 @@
-﻿@model IEnumerable<I_9Form.Models.EmployeeViewModels.EmployeeViewModel>
+﻿@model IEnumerable<I_9Form.ViewModels.EmployeeViewModels.EmployeeViewModel>
 @{
     ViewData["Title"] = "Index";
 }
@@ -108,9 +108,9 @@
                     @Html.DisplayFor(model => item.PhoneNumber)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.EmployeeID">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.EmployeeID">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.EmployeeID">Delete</a>
+                    <a asp-action="Edit" class="btn btn-sm btn-primary col-sm-12" asp-route-id="@item.EmployeeID">Edit</a> 
+                    <a asp-action="Details" class="btn btn-sm btn-success col-sm-12" asp-route-id="@item.EmployeeID">Details</a> 
+                    <a asp-action="Delete" class="btn btn-sm btn-danger col-sm-12" asp-route-id="@item.EmployeeID">Delete</a>
                 </td>
             </tr>
             }

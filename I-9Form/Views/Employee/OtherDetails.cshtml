@@ -1,0 +1,125 @@
+﻿@model I_9Form.ViewModels.EmployeeViewModels.EmployeeOtherDetailsViewModel
+@{
+    ViewData["Title"] = "OtherDetails";
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>OtherDetails</title>
+</head>
+<body>
+    <p class="text-success">@TempData["Success"]</p>
+    <p class="text-danger">@TempData["Failure"]</p>
+    <div class="row">
+        <div class="col">
+            <h3>OtherDetails!!</h3>
+            <p>
+                <b>
+                    I am Aware that federal law provides for imprisonment and/or fines for false statement
+                    or use of false document in connection with the completion of this form
+                </b>
+                <br />
+                <b> I attest, under penality of perjury, that I am(check one of the following boxes): </b>
+            </p>
+            <form id="test">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @if (Model != null)
+                {
+                    <input type="hidden" asp-for="EmployeeID" />
+                }
+
+                <div class="form-group">
+                    <div class="checkbox">
+                        <label>
+                            <input asp-for="CitizenOfUS" /> @Html.DisplayNameFor(model => model.CitizenOfUS)
+                        </label>
+                        <br />
+                        <label>
+                            <input asp-for="NonCitizenUS" /> @Html.DisplayNameFor(model => model.NonCitizenUS)
+                        </label>
+                        <br />
+                        <label>
+                            <input asp-for="LawfulParmanentResidence" /> @Html.DisplayNameFor(model => model.LawfulParmanentResidence)
+                        </label>
+                        <br />
+                        <label>
+                            <input asp-for="AlienAuthToWork" /> @Html.DisplayNameFor(model => model.AlienAuthToWork)
+                        </label>
+                    </div>
+                </div>
+
+                <div id="ParResidence" style="display:none">
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label asp-for="ALienRegNumber" class="control-label"></label>
+                            <input asp-for="ALienRegNumber" class="form-control" />
+                            <span asp-validation-for="ALienRegNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <div id="AlienExp" style="display:none">
+                    <div class="row">
+                        <div class="form-group col-md-4">
+                            <label asp-for="ExpDate" class="control-label"></label>
+                            <input asp-for="ExpDate" class="form-control" />
+                            <span asp-validation-for="ExpDate" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label asp-for="ALienRegNumber" class="control-label"></label>
+                            <input asp-for="ALienRegNumber" class="form-control" />
+                            <span asp-validation-for="ALienRegNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label asp-for="I94AdmissionNum" class="control-label"></label>
+                            <input asp-for="I94AdmissionNum" class="form-control" />
+                            <span asp-validation-for="I94AdmissionNum" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label asp-for="ForeignPassPortNumber" class="control-label"></label>
+                            <input asp-for="ForeignPassPortNumber" class="form-control" />
+                            <span asp-validation-for="ForeignPassPortNumber" class="text-danger"></span>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label asp-for="CountryOfIssue" class="control-label"></label>
+                            <input asp-for="CountryOfIssue" class="form-control" />
+                            <span asp-validation-for="CountryOfIssue" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+                <input type="submit" value="Create" class="btn btn-sm btn-success" />
+                <a href="javascript:;" title="Index" class="btn btn-sm btn-primary">BACK</a>
+            </form>
+
+        </div>
+    </div>
+
+</body>
+</html>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+
+    <script type="text/javascript">
+
+        $('#LawfulParmanentResidence').change(function () {
+            $("#ParResidence").toggle(this.checked);
+            $("#warningmsg").toggle(!this.checked);
+
+        });
+       
+            $('#AlienAuthToWork').change(function () {
+                $("#AlienExp").toggle(this.checked);
+                $("#warningmsg").toggle(!this.checked);
+
+        });
+
+        $('.Back').on("click", function () {
+            window.location.href = "@Url.Action("Create", "Employee")";
+        });
+
+    </script>
+    }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using I_9Form.Models;
-using I_9Form.Models.EmployeeViewModels;
+using I_9Form.ViewModels.EmployeeViewModels;
 
 namespace I_9Form.Data
 {
@@ -24,5 +24,6 @@ namespace I_9Form.Data
             // Add your customizations after calling base.OnModelCreating(builder);
         }
         public DbSet<EmployeeViewModel> EmployeeViewModels { get; set; }
+        public DbSet<EmployeeOtherDetailsViewModel> EmployeeOtherDetailsViewModels { get; set; }
     }
 }

@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
-using static I_9Form.StateName;
 
-namespace I_9Form.Models.EmployeeViewModels
+namespace I_9Form.ViewModels.EmployeeViewModels
 {
     public class EmployeeViewModel
     {

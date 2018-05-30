@@ -11,6 +11,7 @@ using Microsoft.Extensions.DependencyInjection;
 using I_9Form.Data;
 using I_9Form.Models;
 using I_9Form.Services;
+using AutoMapper;
 
 namespace I_9Form
 {
@@ -35,6 +36,7 @@ namespace I_9Form
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            services.AddAutoMapper();
 
             services.AddMvc();
         }
